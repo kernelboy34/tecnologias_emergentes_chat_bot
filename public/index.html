@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Histórico Bolivia - Bicentenario</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <div class="bolivian-emblem">🇧🇴</div>
+                <h1 class="main-title">Habla con personajes históricos de Bolivia</h1>
+                <p class="subtitle">Bicentenario 1825-2025</p>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content" style="display: flex; flex-direction: column; gap: 0;">
+            <!-- Response Area -->
+            <div class="response-section" style="box-shadow:none; order:1;">
+                <div class="response-container">
+                    <h3 class="response-title">Respuesta:</h3>
+                    <p id="respuesta" class="response-text">Las respuestas aparecerán aquí...</p>
+                </div>
+            </div>
+            <div style="display: flex; flex-direction: row; gap: 30px; order:2;">
+                <!-- Character Selection and Image -->
+                <div class="character-section">
+                    <div class="character-display">
+                        <div class="character-portrait">
+                            <img src="https://via.placeholder.com/200x200/8B4513/FFFFFF?text=Personaje" alt="Personaje Histórico" id="character-image">
+                        </div>
+                        <div class="character-info">
+                            <h2 id="character-name">Selecciona un Personaje</h2>
+                            <p id="character-description">Elige un héroe de la historia boliviana</p>
+                        </div>
+                    </div>
+                    <div class="character-selector">
+                        <label for="personaje" class="selector-label">Personaje Histórico:</label>
+                        <select id="personaje" class="character-select">
+                            <option value="azurduy">Juana Azurduy</option>
+                            <option value="sucre">Antonio José de Sucre</option>
+                            <option value="santa_cruz">Andrés de Santa Cruz</option>
+                            <option value="bolivar">Simón Bolívar</option>
+                            <option value="villarroel">Gualberto Villarroel</option>
+                        </select>
+                    </div>
+                </div>
+                <!-- Chat Area -->
+                <div class="chat-area">
+                    <div class="chat-messages" id="chat-display" style="min-height:unset; max-height:unset; padding:0;">
+                        <!-- Aquí aparecerán los mensajes del chat -->
+                    </div>
+                    <div class="input-group">
+                        <input type="text" id="pregunta" placeholder="Escribe tu pregunta sobre la historia de Bolivia..." class="chat-input">
+                        <button id="micButton" class="mic-button" title="Hablar con micrófono">🎤</button>
+                        <button onclick="enviar()" class="send-button">
+                            <span>Preguntar</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="22" y1="2" x2="11" y2="13"></line>
+                                <polygon points="22,2 15,22 11,13 2,9"></polygon>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Datos de los personajes para mostrar imagen y descripción
+        const characterData = {
+            azurduy: {
+                name: "Juana Azurduy de Padilla",
+                description: "Heroína de la Independencia (1780-1862)",
+                image: "https://explicacioninfantil.com/wp-content/uploads/2023/04/Quien-fue-Juana-Azurduy-Explicacion-para-Ninos.jpg"
+            },
+            sucre: {
+                name: "Antonio José de Sucre",
+                description: "Gran Mariscal de Ayacucho (1795-1830)",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRx-k2GVTGxL4AKJj0In3JplEG0VI6NaBcj6A&s"
+            },
+            santa_cruz: {
+                name: "Andrés de Santa Cruz",
+                description: "Presidente y Protector (1792-1865)",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRL_a0W4EM0UsgRJlE0el1I6JStkIZ0A51-NLhay9_PAtaos5k2iN4VvRWfQuUm9Esr9mw&usqp=CAU"
+            },
+            bolivar: {
+                name: "Simón Bolívar",
+                description: "El Libertador de América (1783-1830)",
+                image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Sim%C3%B3n_Bol%C3%ADvar._Toro_Moreno%2C_Luis._1922%2C_Legislative_Palace%2C_La_Paz.png/960px-Sim%C3%B3n_Bol%C3%ADvar._Toro_Moreno%2C_Luis._1922%2C_Legislative_Palace%2C_La_Paz.png"
+            },
+            villarroel: {
+                name: "Gualberto Villarroel",
+                description: "Presidente Revolucionario (1908-1946)",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTenKL7lTizbGs44g2gMu0ligjgiMCFEgw5FHI6WVYq_Tc7k2r-gaKGjdvIecRKaHmZIMo&usqp=CAU"
+            }
+        };
+
+        // Función para actualizar la visualización del personaje
+        function updateCharacterDisplay() {
+            const select = document.getElementById('personaje');
+            const selectedValue = select.value;
+            const character = characterData[selectedValue];
+            
+            if (character) {
+                document.getElementById('character-image').src = character.image;
+                document.getElementById('character-name').textContent = character.name;
+                document.getElementById('character-description').textContent = character.description;
+            }
+        }
+
+        // Event listener para el cambio de personaje
+        document.getElementById('personaje').addEventListener('change', updateCharacterDisplay);
+
+        // Función para permitir envío con Enter
+        document.getElementById('pregunta').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                enviar();
+            }
+        });
+
+        // Inicializar la vista del primer personaje
+        updateCharacterDisplay();
+    </script>
+
+    <script src="script.js"></script>
+    <script src="voz.js"></script>
+    <script src="https://code.responsivevoice.org/responsivevoice.js?key=i2AunaEx"></script>
+</body>
+</html>

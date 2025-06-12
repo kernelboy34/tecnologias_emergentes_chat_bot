@@ -1,0 +1,27 @@
+{
+  "azurduy": {
+    "nombre": "Juana Azurduy",
+    "genero": "femenino",
+    "voz": "Spanish Female"
+  },
+  "sucre": {
+    "nombre": "Antonio José de Sucre",
+    "genero": "masculino",
+    "voz": "Spanish Male"
+  },
+  "santa_cruz": {
+    "nombre": "Andrés de Santa Cruz",
+    "genero": "masculino",
+    "voz": "Spanish Male"
+  },
+  "bolivar": {
+    "nombre": "Simón Bolívar",
+    "genero": "masculino",
+    "voz": "Spanish Male"
+  },
+  "villarroel": {
+    "nombre": "Gualberto Villarroel",
+    "genero": "masculino",
+    "voz": "Spanish Male"
+  }
+}
