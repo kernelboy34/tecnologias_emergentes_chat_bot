@@ -95,6 +95,11 @@ body::before {
     text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.4);
     animation: gentle-float 4s ease-in-out infinite;
 }
+.bolivian-emblem img {
+    width: 20%;
+    height: 20%;
+    object-fit: cover; 
+}
 
 @keyframes gentle-float {
     0%, 100% { transform: translateY(0px); }
@@ -112,7 +117,7 @@ body::before {
 }
 
 .subtitle {
-    font-size: 1.3rem;
+    font-size: 3.3rem;
     color: var(--cream);
     font-style: italic;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
@@ -781,7 +786,7 @@ body::before {
     right: 30px;
     font-size: 2.5rem;
     color: var(--primary-yellow);
-    animation: sparkle 4s infinite 2s;
+    
 }
 
 @keyframes sparkle {
